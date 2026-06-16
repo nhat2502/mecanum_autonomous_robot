@@ -1,0 +1,37 @@
+ekf_filter_node:
+  ros__parameters:
+    use_sim_time: false
+    frequency: 30.0
+    sensor_timeout: 0.1
+    two_d_mode: true
+    publish_tf: true
+    print_diagnostics: true
+
+    map_frame: map
+    odom_frame: odom
+    base_link_frame: base_link
+    world_frame: odom
+
+    # ---------------------------------------------
+    # SENSOR 1: WHEEL ODOMETRY (Từ STM32)
+    # ---------------------------------------------
+    odom0: /odom_encoder
+    # Ta chỉ tin tưởng Vận tốc (Vx, Vy, Vyaw) của bánh xe, KHÔNG tin tọa độ X, Y do dễ trượt
+    odom0_config: [false, false, false,
+                   false, false, false,
+                   true,  true,  false,
+                   false, false, true,
+                   false, false, false]
+    odom0_differential: false
+
+    # ---------------------------------------------
+    # SENSOR 2: LIDAR ODOMETRY (Từ rf2o)
+    # ---------------------------------------------
+    odom1: /odom_rf2o
+    # Ta tin tưởng Tọa độ (X, Y) và Góc xoay (Yaw) của Lidar
+    odom1_config: [true,  true,  false,
+                   false, false, true,
+                   false, false, false,
+                   false, false, false,
+                   false, false, false]
+    odom1_differential: false
