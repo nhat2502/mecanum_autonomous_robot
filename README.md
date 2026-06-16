@@ -1,95 +1,97 @@
-
-# 🚀 Tích hợp Mô hình Ngôn ngữ Lớn (LLM) và Thuật toán SLAM trong Định vị, Dẫn đường và Ra quyết định cho Robot Di động Đa hướng
+# Integration of Large Language Models (LLM) and SLAM Algorithms for Localization, Navigation, and Decision-Making in Omnidirectional Mobile Robots
 
 ![ROS 2](https://img.shields.io/badge/ROS_2-Humble-22314E?style=for-the-badge&logo=ros&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3.10-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Llama 3.3](https://img.shields.io/badge/AI-Llama_3.3_(Groq)-0466C8?style=for-the-badge)
 ![Raspberry Pi](https://img.shields.io/badge/Hardware-Raspberry_Pi_4-C51A4A?style=for-the-badge&logo=Raspberry-Pi)
 
-> **Mô tả dự án:** Đây là mã nguồn chính thức cho Đồ án Tốt nghiệp chuyên ngành Kỹ thuật Robot & Tự động hóa. Dự án xây dựng một hệ thống tự chủ hoàn chỉnh cho robot kho bãi sử dụng khung gầm 4 bánh Mecanum. Lõi hệ thống kết hợp trí tuệ nhân tạo (LLM Llama 3.3) để dịch ngôn ngữ tự nhiên thành chuỗi tác vụ JSON, phối hợp cùng hệ điều hành ROS 2 (Nav2, Cartographer) để thực thi định vị, di chuyển và né vật cản theo thời gian thực.
-*https://drive.google.com/drive/folders/1FGJKuNfUkUo9YEt7l6B-tnkr-01AXbxe?usp=drive_link*
-## 🌟 Tính năng Cốt lõi
-* **Trí tuệ nhân tạo (AI Agent):** Xử lý ngôn ngữ tự nhiên (NLP) bằng Llama 3.3 thông qua Groq API, tự động bóc tách ý định người dùng và ra quyết định chuỗi hành vi.
-* **Định vị & Lập bản đồ (SLAM):** Thuật toán Google Cartographer kết hợp bộ lọc hạt AMCL giúp xây dựng bản đồ tĩnh và xác định tọa độ $(x,y,\theta)$ với độ chính xác cao.
-* **Dẫn đường tự chủ (Nav2):** Tính toán quỹ đạo toàn cục (A*/Dijkstra) và điều khiển vận tốc cục bộ (DWB Local Planner), tự động luồn lách qua chướng ngại vật động.
-* **Điều khiển Đa hướng (Mecanum):** Vi điều khiển cấp thấp (STM32 Nucleo) giải bài toán động học nghịch, giao tiếp với Raspberry Pi 4 qua Serial, cho phép robot trượt ngang và xoay tại chỗ (Zero-radius turn).
+> **Project Description:** This is the official source code for the Graduation Thesis in Robotics & Automation Engineering. The project presents a fully autonomous system for a warehouse robot utilizing a 4-wheel Mecanum chassis. The core architecture integrates Artificial Intelligence (LLM Llama 3.3) to translate natural language commands into a structured JSON task queue, collaborating with the ROS 2 framework (Nav2, Cartographer) to execute real-time localization, navigation, and dynamic obstacle avoidance.
+
+**[View Project Demo Video on Google Drive](https://drive.google.com/drive/folders/1FGJKuNfUkUo9YEt7l6B-tnkr-01AXbxe?usp=drive_link)**
+
+## Core Features
+
+* **Artificial Intelligence (AI Agent):** Utilizes Natural Language Processing (NLP) powered by Llama 3.3 via the Groq API to automatically extract user intent and determine behavioral sequences.
+* **Simultaneous Localization and Mapping (SLAM):** Implements the Google Cartographer algorithm combined with the AMCL particle filter to build static maps and determine (x, y, θ) coordinates with high precision.
+* **Autonomous Navigation (Nav2):** Executes global trajectory calculation (A*/Dijkstra) and local velocity control (DWB Local Planner) for automated dynamic obstacle avoidance.
+* **Omnidirectional Control (Mecanum):** A low-level microcontroller (STM32 Nucleo) solves inverse kinematics and communicates with the Raspberry Pi 4 via Serial, enabling lateral movement and zero-radius turns.
 
 ---
 
-## 📂 Cấu trúc Kho lưu trữ (Repository Structure)
+## Repository Structure
 
-Dự án sử dụng kiến trúc ROS 2 phân tán, chia tải xử lý giữa Máy tính nhúng (Raspberry Pi 4) và Máy trạm (PC Ubuntu):
+The project employs a distributed ROS 2 architecture, sharing the computational load between an embedded worker and a master station:
 
-* **`pi_workspace/` (Robot Worker - Chạy trên RPi 4):**
-  * Đọc dữ liệu cảm biến (RPLiDAR A1).
-  * Chứa các file bash script tự động hóa khởi chạy (`run_mapping.sh`, `run_navigation.sh`).
-  * Driver giao tiếp và xuất xung xuống mạch điều khiển động cơ.
-* **`pc_workspace/` (AI & Master Station - Chạy trên PC):**
-  * Tích hợp khung điều hướng Nav2 và cấu hình Rviz2.
-  * Node Tác tử AI (LLM Commander) giao tiếp với Groq API.
-  * Các script trích xuất dữ liệu, vẽ đồ thị phân tích sai số quỹ đạo.
-* **`meca-dashboard/` (Giao diện Web GUI):**
-  * Ứng dụng Web viết bằng React/Vite.
-  * Hiển thị trực quan bản đồ, tọa độ AMCL, trạng thái hệ thống và khung nhập lệnh tiếng Việt.
+* **`pi_workspace/` (Robot Worker - Running on RPi 4):**
+  * Reads raw sensor data (RPLiDAR A1).
+  * Contains bash scripts for automated startup (`run_mapping.sh`, `run_navigation.sh`).
+  * Hardware drivers for serial communication and motor control board output.
+* **`pc_workspace/` (AI & Master Station - Running on PC Ubuntu):**
+  * Integrates the Nav2 framework and Rviz2 configurations.
+  * AI Agent Node (LLM Commander) interfacing with the Groq API.
+  * Data extraction scripts and trajectory tracking error analysis.
+* **`meca-dashboard/` (Web GUI Dashboard):**
+  * Web application built with React/Vite.
+  * Visually displays the map, AMCL coordinates, system status, and a natural language command input interface.
 
 ---
 
-## 🛠️ Hướng dẫn Khởi chạy (Getting Started)
+## Getting Started
 
-### 1. Vận hành Robot (Trên Raspberry Pi 4)
-Kết nối chung mạng Wi-Fi và SSH vào Raspberry Pi:
+### 1. Robot Operation (On Raspberry Pi 4)
+Connect to the local Wi-Fi network and SSH into the Raspberry Pi:
 ```bash
 ssh ubuntu@192.168.1.13
-# Mật khẩu: ubuntu
+# Password: ubuntu
 cd ~/pi_workspace
 
 ```
 
-**Lựa chọn 1: Chế độ Lập bản đồ (Mapping)**
-Mở 2 terminal trên Pi:
+**Option 1: Mapping Mode**
+Open 2 terminals on the Pi:
 
 ```bash
-# Terminal 1: Chạy lõi SLAM và kết nối phần cứng
+# Terminal 1: Run SLAM core and hardware connection
 ./run_mapping.sh
 
-# Terminal 2: Điều khiển robot chạy thủ công để vẽ map
+# Terminal 2: Manual teleoperation to build the map
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
 
 ```
 
-**Lựa chọn 2: Chế độ Dẫn đường & Tự chủ (Navigation & AMCL)**
+**Option 2: Autonomous Navigation Mode (Nav2 & AMCL)**
 
 ```bash
-# Khởi chạy hệ thống định vị và dẫn đường
+# Launch localization and navigation system
 ./run_navigation.sh
 
 ```
 
-**Lựa chọn 3: Chạy kiểm thử quỹ đạo hình số 8 (Custom Path)**
+**Option 3: Custom Trajectory Tracking (Figure-8)**
 
 ```bash
 python3 run_custom_path.py
 
 ```
 
-### 2. Vận hành AI và Trạm điều khiển (Trên PC Ubuntu)
+### 2. AI and Master Station Operation (On PC Ubuntu)
 
-Mở Terminal trên máy tính PC để bật AI Agent nhận lệnh và giao diện Rviz2:
+Open a Terminal on the PC to launch the AI Agent and Rviz2 interface:
 
 ```bash
 cd ~/pc_workspace
 colcon build
 source install/setup.bash
-# Bật Rviz2 theo dõi Nav2
-ros2 launch nav2_bringup bringup_launch.py use_sim_time:=False map:=<đường_dẫn_file_map.yaml>
-# Bật AI Agent lắng nghe lệnh
+# Launch Rviz2 to monitor Nav2
+ros2 launch nav2_bringup bringup_launch.py use_sim_time:=False map:=<path_to_map_file.yaml>
+# Launch AI Agent to listen for commands
 ros2 run mecanum_ai_project llm_commander
 
 ```
 
-### 3. Bật Giao diện Web (Dashboard)
+### 3. Web Interface Initialization (Dashboard)
 
-Mở một Terminal khác trên PC:
+Open another Terminal on the PC:
 
 ```bash
 cd ~/meca-dashboard
@@ -100,17 +102,17 @@ npm run dev
 
 ---
 
-## 🔬 Tính toán Kỹ thuật & Đánh giá
+## Technical Analysis & Evaluation
 
-* **Mô phỏng & Đánh giá:** Hệ thống đã được kiểm chứng thông qua việc bám quỹ đạo thiết kế trước (Trajectory Tracking). Toàn bộ dữ liệu logs (đường dẫn thực tế vs lý thuyết) được lưu thành file `.csv` và xuất đồ thị phân tích sai số thông qua script Python.
-* **Năng lượng:** Cấu hình pin 18650 Lishen được tính toán dòng xả cẩn thận để gánh toàn bộ tải của vi điều khiển STM32, 4 động cơ DC JGB37-520 và bo mạch Raspberry Pi 4.
+* **Simulation & Evaluation:** The system's accuracy was verified through trajectory tracking experiments. All logs comparing actual versus theoretical paths are saved as `.csv` files, with tracking errors visualized and plotted via Python scripts.
+* **Power Management:** The 18650 Lishen battery pack configuration was rigorously calculated regarding discharge rates to ensure stable power delivery to the STM32 microcontroller, four JGB37-520 DC motors, and the Raspberry Pi 4 board over extended operation periods.
 
 ---
 
-## ✍️ Tác giả
+## Author
 
 * **Lê Văn Nhật**
-* Đồ án Tốt nghiệp chuyên ngành Kỹ thuật Robot & Tự động hóa.
+* Graduation Thesis in Robotics & Automation Engineering.
 
 ```
 
