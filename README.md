@@ -1,7 +1,7 @@
 
 # 🚀 Tích hợp Mô hình Ngôn ngữ Lớn (LLM) và Thuật toán SLAM trong Định vị, Dẫn đường và Ra quyết định cho Robot Di động Đa hướng
 
-![ROS 2](https://img.shields.io/badge/ROS_2-Jazzy-22314E?style=for-the-badge&logo=ros&logoColor=white)
+![ROS 2](https://img.shields.io/badge/ROS_2-Humble-22314E?style=for-the-badge&logo=ros&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3.10-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Llama 3.3](https://img.shields.io/badge/AI-Llama_3.3_(Groq)-0466C8?style=for-the-badge)
 ![Raspberry Pi](https://img.shields.io/badge/Hardware-Raspberry_Pi_4-C51A4A?style=for-the-badge&logo=Raspberry-Pi)
