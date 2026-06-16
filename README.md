@@ -7,7 +7,7 @@
 ![Raspberry Pi](https://img.shields.io/badge/Hardware-Raspberry_Pi_4-C51A4A?style=for-the-badge&logo=Raspberry-Pi)
 
 > **Mô tả dự án:** Đây là mã nguồn chính thức cho Đồ án Tốt nghiệp chuyên ngành Kỹ thuật Robot & Tự động hóa. Dự án xây dựng một hệ thống tự chủ hoàn chỉnh cho robot kho bãi sử dụng khung gầm 4 bánh Mecanum. Lõi hệ thống kết hợp trí tuệ nhân tạo (LLM Llama 3.3) để dịch ngôn ngữ tự nhiên thành chuỗi tác vụ JSON, phối hợp cùng hệ điều hành ROS 2 (Nav2, Cartographer) để thực thi định vị, di chuyển và né vật cản theo thời gian thực.
-
+*https://drive.google.com/drive/folders/1FGJKuNfUkUo9YEt7l6B-tnkr-01AXbxe?usp=drive_link*
 ## 🌟 Tính năng Cốt lõi
 * **Trí tuệ nhân tạo (AI Agent):** Xử lý ngôn ngữ tự nhiên (NLP) bằng Llama 3.3 thông qua Groq API, tự động bóc tách ý định người dùng và ra quyết định chuỗi hành vi.
 * **Định vị & Lập bản đồ (SLAM):** Thuật toán Google Cartographer kết hợp bộ lọc hạt AMCL giúp xây dựng bản đồ tĩnh và xác định tọa độ $(x,y,\theta)$ với độ chính xác cao.
