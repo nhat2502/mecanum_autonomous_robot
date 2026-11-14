@@ -17,6 +17,10 @@
 * **Omnidirectional Control (Mecanum):** A low-level microcontroller (STM32 Nucleo) solves inverse kinematics and communicates with the Raspberry Pi 4 via Serial, enabling lateral movement and zero-radius turns.
 
 ---
+## System Architecture
+<img width="1120" height="600" alt="image" src="https://github.com/user-attachments/assets/603145a1-f4cd-4432-aa55-66eb53a6bc20" />
+
+---
 
 ## Repository Structure
 
@@ -35,6 +39,9 @@ The project employs a distributed ROS 2 architecture, sharing the computational 
   * Visually displays the map, AMCL coordinates, system status, and a natural language command input interface.
 
 ---
+## Nodes Diagram
+<img width="1417" height="992" alt="image" src="https://github.com/user-attachments/assets/52ef327d-faa4-4552-986e-63732fd50a72" />
+
 
 ## Getting Started
 
