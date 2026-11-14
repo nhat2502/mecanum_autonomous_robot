@@ -8,6 +8,7 @@
 > **Project Description:** This is the official source code for the Graduation Thesis in Robotics & Automation Engineering. The project presents a fully autonomous system for a warehouse robot utilizing a 4-wheel Mecanum chassis. The core architecture integrates Artificial Intelligence (LLM Llama 3.3) to translate natural language commands into a structured JSON task queue, collaborating with the ROS 2 framework (Nav2, Cartographer) to execute real-time localization, navigation, and dynamic obstacle avoidance.
 
 **[View Project Demo Video on Google Drive](https://drive.google.com/drive/folders/1FGJKuNfUkUo9YEt7l6B-tnkr-01AXbxe?usp=drive_link)**
+**[Link Report PDF](https://drive.google.com/file/d/1Su_0z7RN8h6tPUaNBluxvDVSjEkI0ghi/view?usp=drive_link)**
 
 ## Core Features
 
@@ -15,6 +16,8 @@
 * **Simultaneous Localization and Mapping (SLAM):** Implements the Google Cartographer algorithm combined with the AMCL particle filter to build static maps and determine (x, y, θ) coordinates with high precision.
 * **Autonomous Navigation (Nav2):** Executes global trajectory calculation (A*/Dijkstra) and local velocity control (DWB Local Planner) for automated dynamic obstacle avoidance.
 * **Omnidirectional Control (Mecanum):** A low-level microcontroller (STM32 Nucleo) solves inverse kinematics and communicates with the Raspberry Pi 4 via Serial, enabling lateral movement and zero-radius turns.
+
+<img width="864" height="762" alt="image" src="https://github.com/user-attachments/assets/723f4708-bc87-4c49-9edf-5ff5e0574b2e" />
 
 ---
 ## System Architecture
