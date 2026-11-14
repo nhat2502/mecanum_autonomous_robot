@@ -8,6 +8,7 @@
 > **Project Description:** This is the official source code for the Graduation Thesis in Robotics & Automation Engineering. The project presents a fully autonomous system for a warehouse robot utilizing a 4-wheel Mecanum chassis. The core architecture integrates Artificial Intelligence (LLM Llama 3.3) to translate natural language commands into a structured JSON task queue, collaborating with the ROS 2 framework (Nav2, Cartographer) to execute real-time localization, navigation, and dynamic obstacle avoidance.
 
 **[View Project Demo Video on Google Drive](https://drive.google.com/drive/folders/1FGJKuNfUkUo9YEt7l6B-tnkr-01AXbxe?usp=drive_link)**
+
 **[Link Report PDF](https://drive.google.com/file/d/1Su_0z7RN8h6tPUaNBluxvDVSjEkI0ghi/view?usp=drive_link)**
 
 ## Core Features
